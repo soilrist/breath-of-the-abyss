@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://tests/check_chapter8_monster_design_values.gd" id="1"]
+
+[node name="CheckChapter8MonsterDesignValues" type="Node"]
+script = ExtResource("1")

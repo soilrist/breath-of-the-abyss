@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/enhance_fx.gd" id="1_fx"]
+
+[node name="EnhanceFx" type="CPUParticles2D"]
+script = ExtResource("1_fx")
+amount = 28
+lifetime = 0.9
+one_shot = true
+explosiveness = 0.75
+direction = Vector2(0, -1)
+spread = 180.0
+gravity = Vector2(0, -30)
+initial_velocity_min = 18.0
+initial_velocity_max = 46.0
+scale_amount_min = 0.6
+scale_amount_max = 1.4
+color = Color(1.0, 0.86, 0.35, 1.0)

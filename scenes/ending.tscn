@@ -1,0 +1,78 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/ending.gd" id="1_ending"]
+[ext_resource type="Script" path="res://scripts/world.gd" id="2_world"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_touch"]
+
+[node name="Ending" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ending")
+
+[node name="World" type="Node2D" parent="."]
+script = ExtResource("2_world")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.015, 0.02, 0.025, 0.86)
+
+[node name="EndingTitle" type="Label" parent="."]
+offset_left = 48.0
+offset_top = 28.0
+offset_right = 272.0
+offset_bottom = 64.0
+text = "THE END"
+horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.95, 0.78, 0.37, 1)
+theme_override_font_sizes/font_size = 24
+
+[node name="Story" type="Label" parent="."]
+offset_left = 32.0
+offset_top = 70.0
+offset_right = 288.0
+offset_bottom = 118.0
+text = "검은 성채가 무너지고, 바람골에는 다시 빛이 돌아왔다.\n그러나 먼 북쪽에서 새로운 그림자가 깨어나고 있었다."
+horizontal_alignment = 1
+autowrap_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.74, 1)
+theme_override_font_sizes/font_size = 10
+
+[node name="Summary" type="Label" parent="."]
+offset_left = 60.0
+offset_top = 120.0
+offset_right = 260.0
+offset_bottom = 206.0
+text = "최종 기록"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 9
+
+[node name="Help" type="Label" parent="."]
+offset_left = 55.0
+offset_top = 220.0
+offset_right = 265.0
+offset_bottom = 237.0
+text = "Enter/J · 타이틀로"
+horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.55, 0.61, 0.56, 1)
+theme_override_font_sizes/font_size = 9
+
+[node name="TouchReturn" type="Button" parent="."]
+visible = false
+offset_left = 55.0
+offset_top = 218.0
+offset_right = 265.0
+offset_bottom = 239.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_touch")

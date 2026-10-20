@@ -1,0 +1,35 @@
+.godot/
+build/
+*.app/
+*.pck
+*.apk
+*.ipa
+.DS_Store
+__pycache__/
+*.pyc
+
+# 내려받은 대용량 원본과 예제 프로젝트는 로컬 보관. 게임에 선별 적용한 파일은 assets/ 아래에서 추적한다.
+assets/vendor/ninja_adventure/source/
+assets/vendor/ninja_adventure/godot4/
+
+# 자율 개발 루프 로그와 정지 신호. 루프 코드/설정만 추적하고 실행 로그는 안 올린다.
+logs/
+loop/STOP
+
+
+# CC0 에셋팩 원본 압축본은 용량이 커서 제외한다. tools/build_item_icons.py 가 다시 받는다.
+assets/vendor/*.zip
+
+# ComfyUI 생성 원본(1024^2)은 용량이 크고 재현 정보(프롬프트·seed)가
+# MAP_MOB_FX_DESIGN.md 표에 있으니 저장소에 넣지 않는다. tools/comfy_gen.py
+# --postprocess 결과물(assets/fx/**)만 추적한다.
+assets/characters/source/comfy/
+
+# 루프 키트 v2.6 (2026-10-19)
+/loop/WRAPUP
+/loop/.lock
+/loop/HOLD
+/captures/tmp/
+/_Source/raw/
+/_Source/reference/
+.claude/settings.local.json

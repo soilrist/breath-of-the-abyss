@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/skill_fx.gd" id="1_skillfx"]
+
+[node name="SkillFx" type="Sprite2D"]
+script = ExtResource("1_skillfx")

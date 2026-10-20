@@ -1,0 +1,12 @@
+{
+  "source": "temporary placeholder pending verified JAR values",
+  "level": 1,
+  "max_hp": 100,
+  "max_mp": 30,
+  "attack": 10,
+  "defense": 5,
+  "move_speed_pixels_per_second": 72.0,
+  "attack_duration_seconds": 0.16,
+  "attack_cooldown_seconds": 0.34
+}
+

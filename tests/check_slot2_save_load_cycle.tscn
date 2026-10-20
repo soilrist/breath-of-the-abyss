@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://tests/check_slot2_save_load_cycle.gd" id="1"]
+
+[node name="CheckSlot2SaveLoadCycle" type="Node"]
+script = ExtResource("1")

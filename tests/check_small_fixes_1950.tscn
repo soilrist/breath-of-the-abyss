@@ -1,0 +1,4 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://tests/check_small_fixes_1950.gd" id="1"]
+[node name="CheckSmallFixes1950" type="Node"]
+script = ExtResource("1")

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://tests/check_quest_stage_text_coverage.gd" id="1_check"]
+
+[node name="CheckQuestStageTextCoverage" type="Node"]
+script = ExtResource("1_check")

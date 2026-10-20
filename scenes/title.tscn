@@ -1,0 +1,249 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scripts/title.gd" id="1_title"]
+[ext_resource type="Texture2D" path="res://assets/ui/title_bg.png" id="2_bg"]
+[ext_resource type="Texture2D" path="res://assets/ui/title_logo.png" id="3_logo"]
+[ext_resource type="Texture2D" path="res://assets/ui/menu_shade.png" id="4_shade"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_touch"]
+
+[sub_resource type="Gradient" id="Gradient_ash"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.5, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ash"]
+gradient = SubResource("Gradient_ash")
+width = 4
+height = 4
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_slotbtn"]
+bg_color = Color(0.03, 0.07, 0.14, 0.7)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.85, 0.72, 0.45, 0.6)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="Title" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_title")
+
+[node name="Background" type="TextureRect" parent="."]
+texture_filter = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_bg")
+expand_mode = 1
+
+[node name="Ash" type="CPUParticles2D" parent="."]
+texture_filter = 2
+position = Vector2(150, 244)
+amount = 22
+lifetime = 10.0
+preprocess = 10.0
+emission_shape = 3
+emission_rect_extents = Vector2(120, 4)
+direction = Vector2(0.15, -1)
+spread = 25.0
+gravity = Vector2(0, -2)
+initial_velocity_min = 5.0
+initial_velocity_max = 12.0
+scale_amount_min = 0.4
+scale_amount_max = 1.0
+texture = SubResource("GradientTexture2D_ash")
+color = Color(0.6, 0.95, 1, 0.7)
+
+[node name="Shade" type="TextureRect" parent="."]
+texture_filter = 2
+layout_mode = 0
+offset_left = 44.0
+offset_top = 90.0
+offset_right = 328.0
+offset_bottom = 234.0
+mouse_filter = 2
+texture = ExtResource("4_shade")
+expand_mode = 1
+
+[node name="Logo" type="TextureRect" parent="."]
+texture_filter = 2
+layout_mode = 0
+offset_left = 14.0
+offset_top = 6.0
+offset_right = 254.0
+offset_bottom = 86.0
+mouse_filter = 2
+texture = ExtResource("3_logo")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Menu" type="Label" parent="."]
+offset_left = 101.0
+offset_top = 104.0
+offset_right = 230.0
+offset_bottom = 180.0
+text = "▶ 새 게임\n   이어하기\n   클리어 기록\n   종료"
+theme_override_colors/font_color = Color(0.96, 0.93, 0.85, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0.05, 0.9)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 13
+
+[node name="Slots" type="Label" parent="."]
+offset_left = 232.0
+offset_top = 104.0
+offset_right = 320.0
+offset_bottom = 224.0
+horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.72, 0.8, 0.92, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0.05, 0.9)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 7
+
+[node name="Notice" type="Label" parent="."]
+offset_left = 55.0
+offset_top = 180.0
+offset_right = 265.0
+offset_bottom = 194.0
+horizontal_alignment = 1
+theme_override_colors/font_color = Color(1, 0.5, 0.4, 1)
+theme_override_font_sizes/font_size = 9
+
+[node name="Help" type="Label" parent="."]
+offset_left = 55.0
+offset_top = 227.0
+offset_right = 265.0
+offset_bottom = 240.0
+text = "↑↓ 메뉴 · ←→ 슬롯 · Enter/J 확인"
+horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.55, 0.65, 0.75, 1)
+theme_override_font_sizes/font_size = 8
+
+[node name="TouchMenu" type="Control" parent="."]
+visible = false
+offset_right = 320.0
+offset_bottom = 240.0
+
+[node name="Choice0" type="Button" parent="TouchMenu"]
+offset_left = 96.0
+offset_top = 104.0
+offset_right = 232.0
+offset_bottom = 123.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_touch")
+
+[node name="Choice1" type="Button" parent="TouchMenu"]
+offset_left = 96.0
+offset_top = 123.0
+offset_right = 232.0
+offset_bottom = 142.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_touch")
+
+[node name="Choice2" type="Button" parent="TouchMenu"]
+offset_left = 96.0
+offset_top = 142.0
+offset_right = 232.0
+offset_bottom = 161.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_touch")
+
+[node name="Choice3" type="Button" parent="TouchMenu"]
+offset_left = 96.0
+offset_top = 161.0
+offset_right = 232.0
+offset_bottom = 180.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_touch")
+
+[node name="SlotPrev" type="Button" parent="TouchMenu"]
+offset_left = 240.0
+offset_top = 196.0
+offset_right = 268.0
+offset_bottom = 218.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_slotbtn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_slotbtn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_slotbtn")
+theme_override_font_sizes/font_size = 8
+text = "◀"
+
+[node name="SlotNext" type="Button" parent="TouchMenu"]
+offset_left = 284.0
+offset_top = 196.0
+offset_right = 312.0
+offset_bottom = 218.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_slotbtn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_slotbtn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_slotbtn")
+theme_override_font_sizes/font_size = 8
+text = "▶"
+
+[node name="MenuUp" type="Button" parent="TouchMenu"]
+offset_left = 8.0
+offset_top = 142.0
+offset_right = 42.0
+offset_bottom = 164.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_slotbtn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_slotbtn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_slotbtn")
+theme_override_font_sizes/font_size = 8
+text = "▲"
+
+[node name="MenuOk" type="Button" parent="TouchMenu"]
+offset_left = 8.0
+offset_top = 169.0
+offset_right = 42.0
+offset_bottom = 191.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_slotbtn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_slotbtn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_slotbtn")
+theme_override_font_sizes/font_size = 8
+text = "확인"
+
+[node name="MenuDown" type="Button" parent="TouchMenu"]
+offset_left = 8.0
+offset_top = 196.0
+offset_right = 42.0
+offset_bottom = 218.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_slotbtn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_slotbtn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_slotbtn")
+theme_override_font_sizes/font_size = 8
+text = "▼"
+
+[node name="MenuGuide" type="Label" parent="TouchMenu"]
+offset_left = 0.0
+offset_top = 128.0
+offset_right = 50.0
+offset_bottom = 140.0
+text = "메뉴 선택"
+horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.72, 0.8, 0.92, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0.05, 0.9)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 7

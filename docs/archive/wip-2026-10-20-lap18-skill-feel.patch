@@ -1,0 +1,198 @@
+diff --git a/scripts/audio.gd b/scripts/audio.gd
+index 9ed3aaf..bd0a9a2 100644
+--- a/scripts/audio.gd
++++ b/scripts/audio.gd
+@@ -123,13 +123,21 @@ func stop_music() -> void:
+ 	_music.stop()
+ 
+ 
++## 타격류(attack/hit/hurt)는 같은 소리가 연타로 반복되면 기계적으로 들린다 -
++## 호출자가 pitch 를 직접 안 지정했을 때만 ±0.08 랜덤을 섞는다.
++const RANDOM_PITCH_SOUNDS := ["attack", "hit", "hurt"]
++const RANDOM_PITCH_RANGE := 0.08
++
+ func play_sfx(sound: String, pitch := 1.0) -> void:
+ 	if not SFX.has(sound):
+ 		return
+ 	var voice := _voices[_next_voice]
+ 	_next_voice = (_next_voice + 1) % SFX_VOICES
+ 	voice.stream = load(SFX[sound])
+-	voice.pitch_scale = pitch
++	var actual_pitch := pitch
++	if pitch == 1.0 and sound in RANDOM_PITCH_SOUNDS:
++		actual_pitch = pitch + randf_range(-RANDOM_PITCH_RANGE, RANDOM_PITCH_RANGE)
++	voice.pitch_scale = actual_pitch
+ 	voice.play()
+ 
+ 
+diff --git a/scripts/enemy.gd b/scripts/enemy.gd
+index 934ea17..6376478 100644
+--- a/scripts/enemy.gd
++++ b/scripts/enemy.gd
+@@ -356,6 +356,11 @@ func _apply_kind() -> void:
+ 
+ 
+ func _physics_process(delta: float) -> void:
++	# 사망 트윈(0.15초) 동안은 그림만 사라지고 AI는 계속 움직여 플레이어를
++	# 때리는 "죽은 뒤에도 공격하는" 버그를 막는다 - 이미 그룹·충돌에서
++	# 빠졌으니 안전하게 멈춘다.
++	if health <= 0:
++		return
+ 	## (감독 결함 수정, 2026-09-08) 플레이어는 `_clamp_to_bounds()`로 지역 안에
+ 	## 갇히지만 적은 아니었다. 원거리형(`_act_ranged`)은 플레이어가 다가오면
+ 	## 반대쪽으로 도망치는데, 위쪽 지역 끝을 넘어서도 계속 도망쳐 y가 매분
+@@ -931,4 +936,17 @@ func take_damage(amount: int, knockback: Vector2, critical := false) -> void:
+ 			var stone := str(GameState.JOB_STONES[randi() % GameState.JOB_STONES.size()])
+ 			dropped.emit({"kind": "job_stone", "stone_id": stone}, global_position + Vector2(0, -8))
+ 		defeated.emit(exp_reward, gold_reward, str(kind.get("id", archetype)))
+-		queue_free()
++		# 사망 트윈 중 추가 피격을 받지 않게 그룹에서 먼저 빼고 충돌을 끈다
++		# (CLAUDE.md 함정: queue_free는 프레임 끝 처리라 그대로 두면 한 프레임
++		# 더 그룹·충돌에 남는다).
++		remove_from_group("enemies")
++		$CollisionShape2D.set_deferred("disabled", true)
++		var death_tween := create_tween()
++		# 보스는 죽는 순간 대사(_on_boss_fallen→_play_dialogue)가 트리를
++		# 일시정지한다 - 트윈이 트리를 따라 멈추면 대사가 끝날 때까지
++		# queue_free가 영영 안 불려 처치 판정이 막힌다(10장 전 보스 전부
++		# kill_boss FAIL로 실측). 대사와 무관하게 계속 흐르게 한다.
++		death_tween.set_pause_mode(Tween.TWEEN_PAUSE_MODE_PROCESS)
++		death_tween.tween_property($Sprite, "scale", _sprite_scale * 1.3, 0.15)
++		death_tween.parallel().tween_property(self, "modulate:a", 0.0, 0.15)
++		death_tween.tween_callback(queue_free)
+diff --git a/scripts/skill_fx.gd b/scripts/skill_fx.gd
+index dc2e2b7..ca29db5 100644
+--- a/scripts/skill_fx.gd
++++ b/scripts/skill_fx.gd
+@@ -3,6 +3,16 @@ class_name SkillFx
+ ## 스킬마다 다른 이펙트를 재생하는 범용 노드. 텍스처와 프레임 수만 넣으면 된다.
+ ## 참격 궤적 하나로 스킬 네 개를 전부 덮던 것을 스킬별로 나눈다.
+ 
++## 광역 스킬(메테오·연쇄번개 등)이 같은 화면에 여러 장 겹치면 화면을 다 덮어
++## 손맛이 아니라 눈 피로가 된다 - 동시에 이 숫자를 넘으면 새로 뜨는 이펙트는
++## 크기를 상한값으로 깎는다(이미 떠 있는 것은 그대로).
++const OVERLAP_CAP_COUNT := 3
++const OVERLAP_MAX_SIZE_UP := 1.6
++## 팝인·페이드 각각 최대 길이. 이펙트 총 길이가 더 짧으면 절반씩 나눠 쓴다.
++const POP_FADE_TIME := 0.1
++
++static var _active_count := 0
++
+ var frames := 4
+ var frame_time := 0.05
+ var _tick := 0.0
+@@ -14,10 +24,31 @@ func play(path: String, frame_count: int, time_per_frame: float, tint: Color, si
+ 	frame = 0
+ 	frames = frame_count
+ 	frame_time = time_per_frame
+-	modulate = tint
+-	scale = Vector2.ONE * size_up
+ 	z_index = 10
+ 
++	_active_count += 1
++	var target_size := size_up
++	if _active_count > OVERLAP_CAP_COUNT:
++		target_size = minf(target_size, OVERLAP_MAX_SIZE_UP)
++
++	var total_time := frame_count * time_per_frame
++	var pop_time := minf(POP_FADE_TIME, total_time * 0.4)
++	var fade_time := minf(POP_FADE_TIME, total_time * 0.4)
++
++	scale = Vector2.ZERO
++	modulate = Color(tint.r, tint.g, tint.b, 0.0)
++	var tween := create_tween()
++	tween.tween_property(self, "scale", Vector2.ONE * target_size, pop_time)
++	tween.parallel().tween_property(self, "modulate:a", tint.a, pop_time)
++	var hold_time := total_time - pop_time - fade_time
++	if hold_time > 0.0:
++		tween.tween_interval(hold_time)
++	tween.tween_property(self, "modulate:a", 0.0, fade_time)
++
++
++func _exit_tree() -> void:
++	_active_count -= 1
++
+ 
+ func _process(delta: float) -> void:
+ 	_tick += delta
+diff --git a/tests/run_validation.sh b/tests/run_validation.sh
+index b6409b2..d897f8b 100755
+--- a/tests/run_validation.sh
++++ b/tests/run_validation.sh
+@@ -169,6 +169,7 @@ fi
+ "$GODOT_BIN" --headless --path "$PROJECT_DIR" res://tests/check_enemy_attack_motion.tscn >>"$LOG_FILE" 2>&1
+ "$GODOT_BIN" --headless --path "$PROJECT_DIR" res://tests/check_boss_persist_on_reentry.tscn >>"$LOG_FILE" 2>&1
+ "$GODOT_BIN" --headless --path "$PROJECT_DIR" res://tests/check_boss_reward_immediate.tscn >>"$LOG_FILE" 2>&1
++"$GODOT_BIN" --headless --path "$PROJECT_DIR" res://tests/check_enemy_death_no_double_hit.tscn >>"$LOG_FILE" 2>&1
+ "$GODOT_BIN" --headless --path "$PROJECT_DIR" res://tests/check_quest_death_resume.tscn >>"$LOG_FILE" 2>&1
+ "$GODOT_BIN" --headless --path "$PROJECT_DIR" res://tests/check_quest_restock_return.tscn >>"$LOG_FILE" 2>&1
+ "$GODOT_BIN" --headless --path "$PROJECT_DIR" res://tests/check_inventory_material_tab.tscn >>"$LOG_FILE" 2>&1
+diff --git a/tests/check_enemy_death_no_double_hit.gd b/tests/check_enemy_death_no_double_hit.gd
+new file mode 100644
+index 0000000..ebb34c2
+--- /dev/null
++++ b/tests/check_enemy_death_no_double_hit.gd
+@@ -0,0 +1,44 @@
++extends Node
++## 적이 죽은 순간 "enemies" 그룹·충돌을 바로 빼서, 0.15초 사망 트윈이 끝나기
++## 전에 다른 타격이 또 들어와도 health 가 더 깎이지 않는지 확인한다
++## (스킬·처치 손맛 지시, 감독 2026-10-19 23:49).
++
++func _ready() -> void:
++	var world := Node2D.new()
++	add_child(world)
++	var enemy: CharacterBody2D = preload("res://scenes/enemy.tscn").instantiate()
++	world.add_child(enemy)
++	enemy.max_health = 10
++	enemy.health = 10
++	await get_tree().process_frame
++
++	var ok := true
++	ok = _check("죽기 전엔 enemies 그룹에 있음", enemy.is_in_group("enemies")) and ok
++	ok = _check("죽기 전엔 충돌이 켜져 있음", not enemy.get_node("CollisionShape2D").disabled) and ok
++
++	enemy.take_damage(999, Vector2.RIGHT)
++	await get_tree().process_frame
++
++	ok = _check("사망 즉시 enemies 그룹에서 빠짐(health=%d)" % enemy.health,
++		not enemy.is_in_group("enemies")) and ok
++	ok = _check("사망 즉시 충돌이 꺼짐", enemy.get_node("CollisionShape2D").disabled) and ok
++
++	# 실제 공격 판정은 "enemies" 그룹을 돌거나 CollisionShape2D 와 겹쳐서
++	# 때린다(player.gd) - 사망 트윈(0.15초)이 끝나기 전까지 두 경로 모두
++	# 이 적을 못 찾아야 "피격 0"이 보장된다.
++	for i in 8:
++		await get_tree().process_frame
++		if not is_instance_valid(enemy):
++			break
++		ok = _check("트윈 중 enemies 그룹에 다시 안 들어옴(frame %d)" % i,
++			not enemy.is_in_group("enemies")) and ok
++		ok = _check("트윈 중 충돌이 계속 꺼져 있음(frame %d)" % i,
++			enemy.get_node("CollisionShape2D").disabled) and ok
++
++	print("RESULT ", "PASS" if ok else "FAIL")
++	get_tree().quit()
++
++
++func _check(label: String, cond: bool) -> bool:
++	print(label, " ", "OK" if cond else "FAIL")
++	return cond
+diff --git a/tests/check_enemy_death_no_double_hit.gd.uid b/tests/check_enemy_death_no_double_hit.gd.uid
+new file mode 100644
+index 0000000..611e297
+--- /dev/null
++++ b/tests/check_enemy_death_no_double_hit.gd.uid
+@@ -0,0 +1 @@
++uid://bhc1me21tpsfc
+diff --git a/tests/check_enemy_death_no_double_hit.tscn b/tests/check_enemy_death_no_double_hit.tscn
+new file mode 100644
+index 0000000..013141a
+--- /dev/null
++++ b/tests/check_enemy_death_no_double_hit.tscn
+@@ -0,0 +1,6 @@
++[gd_scene load_steps=2 format=3]
++
++[ext_resource type="Script" path="res://tests/check_enemy_death_no_double_hit.gd" id="1"]
++
++[node name="CheckEnemyDeathNoDoubleHit" type="Node"]
++script = ExtResource("1")

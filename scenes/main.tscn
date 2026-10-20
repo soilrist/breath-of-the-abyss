@@ -1,0 +1,1787 @@
+[gd_scene format=3 uid="uid://bya36j0osf2t7"]
+
+[ext_resource type="Script" uid="uid://bpjrmc0oyrmrk" path="res://scripts/main.gd" id="1_main"]
+[ext_resource type="Script" uid="uid://c0bus7fo4yunm" path="res://scripts/player.gd" id="2_player"]
+[ext_resource type="Texture2D" uid="uid://b0khm77axkw68" path="res://assets/icons/attack.svg" id="4_attack"]
+[ext_resource type="Texture2D" uid="uid://bldubyxgfpj52" path="res://assets/icons/skills/slash.png" id="5_sk0"]
+[ext_resource type="Texture2D" uid="uid://bcch1iod7bij1" path="res://assets/icons/dodge.svg" id="6_dodge"]
+[ext_resource type="Texture2D" uid="uid://cb14tux3egtw5" path="res://assets/icons/potion.svg" id="7_potion"]
+[ext_resource type="Script" uid="uid://bxsbs7qeecehx" path="res://scripts/mobile_controls.gd" id="8_mobile"]
+[ext_resource type="Texture2D" uid="uid://d34fymthbt7io" path="res://assets/characters/hero.png" id="9_hero"]
+[ext_resource type="Texture2D" uid="uid://c6pbpafi5f7dc" path="res://assets/characters/npc_elder.png" id="10_elder"]
+[ext_resource type="Script" uid="uid://c2nni0v6geay1" path="res://scripts/world.gd" id="14_world"]
+[ext_resource type="Script" uid="uid://2vci885kwkkf" path="res://scripts/world_map.gd" id="15_worldmap"]
+[ext_resource type="Texture2D" uid="uid://bl2myqi0ec3db" path="res://assets/characters/npc_merchant.png" id="16_merchant"]
+[ext_resource type="Texture2D" uid="uid://bh5fkate3gk7p" path="res://assets/icons/skills/burst.png" id="17_sk1"]
+[ext_resource type="Texture2D" uid="uid://1fh8wbdby3mo" path="res://assets/icons/skills/flame.png" id="18_sk2"]
+[ext_resource type="Texture2D" uid="uid://bwvbd50fqcebe" path="res://assets/icons/skills/heal.png" id="19_sk3"]
+[ext_resource type="Texture2D" uid="uid://c2vvjxmstodow" path="res://assets/characters/npc_smith.png" id="20_smith"]
+[ext_resource type="Texture2D" uid="uid://dbl6ioieaul5y" path="res://assets/characters/npc_inn.png" id="21_inn"]
+[ext_resource type="Texture2D" uid="uid://dgys3fgtlksmk" path="res://assets/characters/npc_keeper.png" id="22_keeper"]
+[ext_resource type="Script" uid="uid://ctk0g7atf3g2p" path="res://scripts/virtual_joystick.gd" id="23_joystick"]
+[ext_resource type="Script" uid="uid://8kqsnkaysik" path="res://scripts/world_atlas.gd" id="24_atlas"]
+[ext_resource type="Texture2D" uid="uid://d3b8r35st0d21" path="res://assets/icons/scroll.svg" id="25_scroll"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
+size = Vector2(10, 6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp"]
+bg_color = Color(0.78, 0.22, 0.22, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mp"]
+bg_color = Color(0.25, 0.45, 0.85, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_exp"]
+bg_color = Color(0.85, 0.7, 0.2, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_quest_on"]
+bg_color = Color(0.25, 0.55, 0.95, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_touch"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_auto_on"]
+bg_color = Color(0.25, 0.85, 0.35, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="Main" type="Node2D" unique_id=1424463517]
+process_mode = 3
+script = ExtResource("1_main")
+
+[node name="World" type="Node2D" parent="." unique_id=554048602]
+script = ExtResource("14_world")
+
+[node name="VillageElder" type="Node2D" parent="." unique_id=2033423450]
+position = Vector2(56, 108)
+
+[node name="Sprite" type="Sprite2D" parent="VillageElder" unique_id=869218518]
+position = Vector2(0, -4)
+texture = ExtResource("10_elder")
+hframes = 4
+vframes = 7
+
+[node name="Marker" type="Label" parent="VillageElder" unique_id=1533769021]
+offset_left = -3.0
+offset_top = -27.0
+offset_right = 9.0
+offset_bottom = -13.0
+theme_override_colors/font_color = Color(1, 0.9, 0.2, 1)
+text = "!"
+
+[node name="Merchant" type="Node2D" parent="." unique_id=309272787]
+position = Vector2(212, 108)
+
+[node name="Sprite" type="Sprite2D" parent="Merchant" unique_id=1497281612]
+position = Vector2(0, -4)
+texture = ExtResource("16_merchant")
+hframes = 4
+vframes = 7
+
+[node name="Marker" type="Label" parent="Merchant" unique_id=1936338868]
+offset_left = -4.0
+offset_top = -27.0
+offset_right = 10.0
+offset_bottom = -13.0
+theme_override_colors/font_color = Color(0.6, 1, 0.5, 1)
+text = "$"
+
+[node name="Smith" type="Node2D" parent="." unique_id=1609493641]
+position = Vector2(136, 108)
+
+[node name="Sprite" type="Sprite2D" parent="Smith" unique_id=751083143]
+position = Vector2(0, -4)
+texture = ExtResource("20_smith")
+hframes = 4
+vframes = 7
+
+[node name="Marker" type="Label" parent="Smith" unique_id=247967212]
+offset_left = -4.0
+offset_top = -27.0
+offset_right = 12.0
+offset_bottom = -13.0
+theme_override_colors/font_color = Color(1, 0.6, 0.3, 1)
+text = "+"
+
+[node name="Innkeeper" type="Node2D" parent="." unique_id=1416494852]
+position = Vector2(96, 108)
+
+[node name="Sprite" type="Sprite2D" parent="Innkeeper" unique_id=297829445]
+position = Vector2(0, -4)
+texture = ExtResource("21_inn")
+hframes = 4
+vframes = 7
+
+[node name="Marker" type="Label" parent="Innkeeper" unique_id=1583567175]
+offset_left = -4.0
+offset_top = -27.0
+offset_right = 12.0
+offset_bottom = -13.0
+theme_override_colors/font_color = Color(1, 0.5, 0.6, 1)
+text = "♥"
+
+[node name="Keeper" type="Node2D" parent="." unique_id=1706622339]
+position = Vector2(172, 108)
+
+[node name="Sprite" type="Sprite2D" parent="Keeper" unique_id=784819697]
+position = Vector2(0, -4)
+texture = ExtResource("22_keeper")
+hframes = 4
+vframes = 7
+
+[node name="Marker" type="Label" parent="Keeper" unique_id=1818303152]
+offset_left = -5.0
+offset_top = -27.0
+offset_right = 12.0
+offset_bottom = -13.0
+theme_override_colors/font_color = Color(0.7, 0.85, 1, 1)
+text = "▣"
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=1109595016]
+position = Vector2(160, 130)
+script = ExtResource("2_player")
+
+[node name="Sprite" type="Sprite2D" parent="Player" unique_id=1475880450]
+position = Vector2(0, -4)
+texture = ExtResource("9_hero")
+hframes = 4
+vframes = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=936646552]
+shape = SubResource("RectangleShape2D_player")
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=322702173]
+limit_left = 0
+limit_top = 0
+limit_right = 320
+limit_bottom = 240
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=439875713]
+
+[node name="Area" type="Label" parent="HUD" unique_id=384906205]
+offset_left = 89.0
+offset_top = 42.0
+offset_right = 252.0
+offset_bottom = 58.0
+theme_override_colors/font_color = Color(0.68, 0.84, 1, 1)
+theme_override_font_sizes/font_size = 9
+text = "바람골 마을"
+horizontal_alignment = 2
+
+[node name="Message" type="Label" parent="HUD" unique_id=1096322919]
+offset_left = 89.0
+offset_top = 7.0
+offset_right = 266.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(1, 0.82, 0.35, 1)
+theme_override_font_sizes/font_size = 10
+text = "숲의 마물을 처치하라  0/3"
+horizontal_alignment = 2
+autowrap_mode = 2
+
+[node name="AutoLabel" type="Label" parent="HUD" unique_id=2118833101]
+visible = false
+offset_left = 4.0
+offset_top = 30.0
+offset_right = 64.0
+offset_bottom = 42.0
+theme_override_colors/font_color = Color(0.4, 1, 0.4, 1)
+theme_override_font_sizes/font_size = 9
+text = "AUTO"
+
+[node name="QuestLabel" type="Label" parent="HUD" unique_id=2118833102]
+visible = false
+offset_left = 4.0
+offset_top = 42.0
+offset_right = 64.0
+offset_bottom = 54.0
+theme_override_colors/font_color = Color(0.45, 0.75, 1, 1)
+theme_override_font_sizes/font_size = 9
+text = "QUEST"
+
+[node name="SkillBar" type="Control" parent="HUD" unique_id=1400803240]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 128.0
+offset_top = 170.0
+offset_right = 312.0
+offset_bottom = 238.0
+pivot_offset = Vector2(64, 68)
+
+[node name="Attack" type="TextureRect" parent="HUD/SkillBar" unique_id=403680779]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 40.0
+offset_right = 84.0
+offset_bottom = 68.0
+texture = ExtResource("4_attack")
+
+[node name="Key" type="Label" parent="HUD/SkillBar/Attack" unique_id=679551591]
+layout_mode = 0
+offset_top = 22.0
+offset_right = 28.0
+offset_bottom = 38.0
+theme_override_font_sizes/font_size = 8
+text = "J"
+horizontal_alignment = 1
+
+[node name="Cooldown" type="ProgressBar" parent="HUD/SkillBar/Attack" unique_id=1467430047]
+visible = false
+layout_mode = 0
+offset_top = 20.0
+offset_right = 24.0
+offset_bottom = 24.0
+show_percentage = false
+
+[node name="Skill0" type="TextureRect" parent="HUD/SkillBar" unique_id=2090424194]
+layout_mode = 0
+offset_top = 4.0
+offset_right = 24.0
+offset_bottom = 28.0
+texture = ExtResource("5_sk0")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Key" type="Label" parent="HUD/SkillBar/Skill0" unique_id=64764998]
+layout_mode = 0
+offset_top = 17.0
+offset_right = 24.0
+offset_bottom = 30.0
+theme_override_font_sizes/font_size = 7
+text = "1"
+horizontal_alignment = 1
+
+[node name="Cost" type="Label" parent="HUD/SkillBar/Skill0" unique_id=1123579268]
+layout_mode = 0
+offset_right = 23.0
+offset_bottom = 10.0
+theme_override_font_sizes/font_size = 8
+horizontal_alignment = 2
+
+[node name="Pick" type="ColorRect" parent="HUD/SkillBar/Skill0" unique_id=1123140391]
+layout_mode = 0
+offset_top = -3.0
+offset_right = 24.0
+offset_bottom = -1.0
+color = Color(1, 0.85, 0.35, 1)
+
+[node name="Cooldown" type="ProgressBar" parent="HUD/SkillBar/Skill0" unique_id=1776347538]
+visible = false
+layout_mode = 0
+offset_top = 20.0
+offset_right = 22.0
+offset_bottom = 24.0
+show_percentage = false
+
+[node name="Skill1" type="TextureRect" parent="HUD/SkillBar" unique_id=53531374]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 4.0
+offset_right = 52.0
+offset_bottom = 28.0
+texture = ExtResource("17_sk1")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Key" type="Label" parent="HUD/SkillBar/Skill1" unique_id=1536981525]
+layout_mode = 0
+offset_top = 17.0
+offset_right = 24.0
+offset_bottom = 30.0
+theme_override_font_sizes/font_size = 7
+text = "2"
+horizontal_alignment = 1
+
+[node name="Cost" type="Label" parent="HUD/SkillBar/Skill1" unique_id=1317830310]
+layout_mode = 0
+offset_right = 23.0
+offset_bottom = 10.0
+theme_override_font_sizes/font_size = 8
+horizontal_alignment = 2
+
+[node name="Pick" type="ColorRect" parent="HUD/SkillBar/Skill1" unique_id=1256923609]
+layout_mode = 0
+offset_top = -3.0
+offset_right = 24.0
+offset_bottom = -1.0
+color = Color(1, 0.85, 0.35, 1)
+
+[node name="Cooldown" type="ProgressBar" parent="HUD/SkillBar/Skill1" unique_id=890686858]
+visible = false
+layout_mode = 0
+offset_top = 20.0
+offset_right = 22.0
+offset_bottom = 24.0
+show_percentage = false
+
+[node name="Skill2" type="TextureRect" parent="HUD/SkillBar" unique_id=1366566894]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 4.0
+offset_right = 80.0
+offset_bottom = 28.0
+texture = ExtResource("18_sk2")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Key" type="Label" parent="HUD/SkillBar/Skill2" unique_id=1813836863]
+layout_mode = 0
+offset_top = 17.0
+offset_right = 24.0
+offset_bottom = 30.0
+theme_override_font_sizes/font_size = 7
+text = "3"
+horizontal_alignment = 1
+
+[node name="Cost" type="Label" parent="HUD/SkillBar/Skill2" unique_id=1572929629]
+layout_mode = 0
+offset_right = 23.0
+offset_bottom = 10.0
+theme_override_font_sizes/font_size = 8
+horizontal_alignment = 2
+
+[node name="Pick" type="ColorRect" parent="HUD/SkillBar/Skill2" unique_id=796676931]
+layout_mode = 0
+offset_top = -3.0
+offset_right = 24.0
+offset_bottom = -1.0
+color = Color(1, 0.85, 0.35, 1)
+
+[node name="Cooldown" type="ProgressBar" parent="HUD/SkillBar/Skill2" unique_id=433844222]
+visible = false
+layout_mode = 0
+offset_top = 20.0
+offset_right = 22.0
+offset_bottom = 24.0
+show_percentage = false
+
+[node name="Skill3" type="TextureRect" parent="HUD/SkillBar" unique_id=1871062715]
+layout_mode = 0
+offset_left = 84.0
+offset_top = 4.0
+offset_right = 108.0
+offset_bottom = 28.0
+texture = ExtResource("19_sk3")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Key" type="Label" parent="HUD/SkillBar/Skill3" unique_id=1033607419]
+layout_mode = 0
+offset_top = 17.0
+offset_right = 24.0
+offset_bottom = 30.0
+theme_override_font_sizes/font_size = 7
+text = "4"
+horizontal_alignment = 1
+
+[node name="Cost" type="Label" parent="HUD/SkillBar/Skill3" unique_id=1616684199]
+layout_mode = 0
+offset_right = 23.0
+offset_bottom = 10.0
+theme_override_font_sizes/font_size = 8
+horizontal_alignment = 2
+
+[node name="Pick" type="ColorRect" parent="HUD/SkillBar/Skill3" unique_id=14256302]
+layout_mode = 0
+offset_top = -3.0
+offset_right = 24.0
+offset_bottom = -1.0
+color = Color(1, 0.85, 0.35, 1)
+
+[node name="Cooldown" type="ProgressBar" parent="HUD/SkillBar/Skill3" unique_id=1884383039]
+visible = false
+layout_mode = 0
+offset_top = 20.0
+offset_right = 22.0
+offset_bottom = 24.0
+show_percentage = false
+
+[node name="Dodge" type="TextureRect" parent="HUD/SkillBar" unique_id=1073799232]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 40.0
+offset_right = 116.0
+offset_bottom = 68.0
+texture = ExtResource("6_dodge")
+
+[node name="Key" type="Label" parent="HUD/SkillBar/Dodge" unique_id=1554192750]
+layout_mode = 0
+offset_top = 22.0
+offset_right = 28.0
+offset_bottom = 38.0
+theme_override_font_sizes/font_size = 8
+text = "Q"
+horizontal_alignment = 1
+
+[node name="Cooldown" type="ProgressBar" parent="HUD/SkillBar/Dodge" unique_id=38573251]
+visible = false
+layout_mode = 0
+offset_top = 20.0
+offset_right = 24.0
+offset_bottom = 24.0
+show_percentage = false
+
+[node name="Potion" type="TextureRect" parent="HUD/SkillBar" unique_id=1453872868]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 40.0
+offset_right = 148.0
+offset_bottom = 68.0
+texture = ExtResource("7_potion")
+
+[node name="Key" type="Label" parent="HUD/SkillBar/Potion" unique_id=490138327]
+layout_mode = 0
+offset_top = 22.0
+offset_right = 28.0
+offset_bottom = 38.0
+theme_override_font_sizes/font_size = 8
+text = "L"
+horizontal_alignment = 1
+
+[node name="Count" type="Label" parent="HUD/SkillBar/Potion" unique_id=1362560917]
+layout_mode = 0
+offset_left = 17.0
+offset_right = 28.0
+offset_bottom = 12.0
+theme_override_colors/font_color = Color(1, 1, 0.7, 1)
+theme_override_font_sizes/font_size = 8
+text = "2"
+horizontal_alignment = 1
+
+[node name="Scroll" type="TextureRect" parent="HUD/SkillBar" unique_id=1453872900]
+layout_mode = 0
+offset_left = 152.0
+offset_top = 40.0
+offset_right = 180.0
+offset_bottom = 68.0
+texture = ExtResource("25_scroll")
+
+[node name="Key" type="Label" parent="HUD/SkillBar/Scroll" unique_id=1453872901]
+layout_mode = 0
+offset_top = 22.0
+offset_right = 28.0
+offset_bottom = 38.0
+theme_override_font_sizes/font_size = 8
+text = "M"
+horizontal_alignment = 1
+
+[node name="Count" type="Label" parent="HUD/SkillBar/Scroll" unique_id=1453872902]
+layout_mode = 0
+offset_left = 14.0
+offset_right = 28.0
+offset_bottom = 12.0
+theme_override_colors/font_color = Color(1, 1, 0.7, 1)
+theme_override_font_sizes/font_size = 8
+text = "0"
+horizontal_alignment = 1
+
+[node name="Skill4" type="TextureRect" parent="HUD/SkillBar" unique_id=2090424195]
+visible = false
+layout_mode = 0
+offset_left = 112.0
+offset_top = 4.0
+offset_right = 136.0
+offset_bottom = 28.0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Key" type="Label" parent="HUD/SkillBar/Skill4" unique_id=64764999]
+layout_mode = 0
+offset_top = 17.0
+offset_right = 24.0
+offset_bottom = 30.0
+theme_override_font_sizes/font_size = 7
+text = "5"
+horizontal_alignment = 1
+
+[node name="Cost" type="Label" parent="HUD/SkillBar/Skill4" unique_id=1123579269]
+layout_mode = 0
+offset_right = 23.0
+offset_bottom = 10.0
+theme_override_font_sizes/font_size = 8
+horizontal_alignment = 2
+
+[node name="Pick" type="ColorRect" parent="HUD/SkillBar/Skill4" unique_id=1123140392]
+layout_mode = 0
+offset_top = -3.0
+offset_right = 24.0
+offset_bottom = -1.0
+color = Color(1, 0.85, 0.35, 1)
+
+[node name="Cooldown" type="ProgressBar" parent="HUD/SkillBar/Skill4" unique_id=1776347539]
+visible = false
+layout_mode = 0
+offset_top = 20.0
+offset_right = 22.0
+offset_bottom = 24.0
+show_percentage = false
+
+[node name="Skill5" type="TextureRect" parent="HUD/SkillBar" unique_id=2090424196]
+visible = false
+layout_mode = 0
+offset_left = 140.0
+offset_top = 4.0
+offset_right = 164.0
+offset_bottom = 28.0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Key" type="Label" parent="HUD/SkillBar/Skill5" unique_id=64765000]
+layout_mode = 0
+offset_top = 17.0
+offset_right = 24.0
+offset_bottom = 30.0
+theme_override_font_sizes/font_size = 7
+text = "6"
+horizontal_alignment = 1
+
+[node name="Cost" type="Label" parent="HUD/SkillBar/Skill5" unique_id=1123579270]
+layout_mode = 0
+offset_right = 23.0
+offset_bottom = 10.0
+theme_override_font_sizes/font_size = 8
+horizontal_alignment = 2
+
+[node name="Pick" type="ColorRect" parent="HUD/SkillBar/Skill5" unique_id=1123140393]
+layout_mode = 0
+offset_top = -3.0
+offset_right = 24.0
+offset_bottom = -1.0
+color = Color(1, 0.85, 0.35, 1)
+
+[node name="Cooldown" type="ProgressBar" parent="HUD/SkillBar/Skill5" unique_id=1776347540]
+visible = false
+layout_mode = 0
+offset_top = 20.0
+offset_right = 22.0
+offset_bottom = 24.0
+show_percentage = false
+
+[node name="Inventory" type="ColorRect" parent="HUD" unique_id=1482711632]
+process_mode = 3
+visible = false
+offset_left = 8.0
+offset_top = 26.0
+offset_right = 284.0
+offset_bottom = 232.0
+color = Color(0.035, 0.047, 0.039, 0.985)
+
+[node name="Info" type="Label" parent="HUD/Inventory" unique_id=1725299921]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 160.0
+offset_bottom = 149.0
+theme_override_colors/font_color = Color(0.92, 0.88, 0.68, 1)
+theme_override_font_sizes/font_size = 9
+text = "인벤토리"
+autowrap_mode = 2
+clip_text = true
+
+[node name="Icon" type="TextureRect" parent="HUD/Inventory" unique_id=405809297]
+layout_mode = 0
+offset_left = 222.0
+offset_top = 8.0
+offset_right = 250.0
+offset_bottom = 36.0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Detail" type="Label" parent="HUD/Inventory" unique_id=890084354]
+layout_mode = 0
+offset_left = 172.0
+offset_top = 40.0
+offset_right = 270.0
+offset_bottom = 196.0
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 7
+autowrap_mode = 2
+clip_text = true
+
+[node name="Help" type="Label" parent="HUD/Inventory" unique_id=294168574]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 170.0
+offset_right = 164.0
+offset_bottom = 186.0
+theme_override_colors/font_color = Color(0.6, 0.66, 0.6, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 7
+text = "↑↓ 선택   E 착용   I 닫기"
+autowrap_mode = 2
+clip_text = true
+
+[node name="Notice" type="Label" parent="HUD/Inventory" unique_id=1000302413]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 153.0
+offset_right = 164.0
+offset_bottom = 166.0
+theme_override_colors/font_color = Color(1, 0.76, 0.32, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 8
+horizontal_alignment = 1
+clip_text = true
+
+[node name="Dialogue" type="ColorRect" parent="HUD" unique_id=1155786329]
+process_mode = 3
+visible = false
+offset_left = 16.0
+offset_top = 60.0
+offset_right = 304.0
+offset_bottom = 198.0
+color = Color(0.03, 0.035, 0.05, 0.97)
+
+[node name="Face" type="TextureRect" parent="HUD/Dialogue" unique_id=811829375]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 44.0
+offset_bottom = 44.0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Speaker" type="Label" parent="HUD/Dialogue" unique_id=36033366]
+layout_mode = 0
+offset_left = 50.0
+offset_right = 214.0
+offset_bottom = 17.0
+theme_override_colors/font_color = Color(1, 0.86, 0.5, 1)
+theme_override_font_sizes/font_size = 9
+
+[node name="Text" type="Label" parent="HUD/Dialogue" unique_id=1233423970]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 21.0
+offset_right = 266.0
+offset_bottom = 60.0
+theme_override_colors/font_color = Color(0.93, 0.95, 0.92, 1)
+theme_override_font_sizes/font_size = 9
+autowrap_mode = 2
+
+[node name="Choices" type="Label" parent="HUD/Dialogue" unique_id=835507963]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 64.0
+offset_right = 266.0
+offset_bottom = 117.0
+theme_override_colors/font_color = Color(1, 0.94, 0.72, 1)
+theme_override_font_sizes/font_size = 9
+
+[node name="More" type="Label" parent="HUD/Dialogue" unique_id=235640437]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 121.0
+offset_right = 266.0
+offset_bottom = 134.0
+theme_override_colors/font_color = Color(0.6, 0.7, 0.66, 1)
+theme_override_font_sizes/font_size = 8
+horizontal_alignment = 2
+
+[node name="Shop" type="ColorRect" parent="HUD" unique_id=1474558447]
+process_mode = 3
+visible = false
+offset_left = 6.0
+offset_top = 8.0
+offset_right = 276.0
+offset_bottom = 206.0
+color = Color(0.035, 0.047, 0.039, 0.97)
+
+[node name="Info" type="Label" parent="HUD/Shop" unique_id=1633911937]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 160.0
+offset_bottom = 149.0
+theme_override_colors/font_color = Color(0.92, 0.88, 0.68, 1)
+theme_override_font_sizes/font_size = 9
+text = "촌장 상점"
+autowrap_mode = 2
+clip_text = true
+
+[node name="Help" type="Label" parent="HUD/Shop" unique_id=59708008]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 170.0
+offset_right = 164.0
+offset_bottom = 186.0
+theme_override_colors/font_color = Color(0.6, 0.66, 0.6, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 7
+text = "↑↓ 선택   E 구매   I/Esc 닫기"
+autowrap_mode = 2
+clip_text = true
+
+[node name="Icon" type="TextureRect" parent="HUD/Shop" unique_id=1371089385]
+layout_mode = 0
+offset_left = 208.0
+offset_top = 8.0
+offset_right = 236.0
+offset_bottom = 36.0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Detail" type="Label" parent="HUD/Shop" unique_id=6882878]
+layout_mode = 0
+offset_left = 172.0
+offset_top = 40.0
+offset_right = 270.0
+offset_bottom = 196.0
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 7
+autowrap_mode = 2
+clip_text = true
+
+[node name="Notice" type="Label" parent="HUD/Shop" unique_id=1000302415]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 153.0
+offset_right = 164.0
+offset_bottom = 166.0
+theme_override_colors/font_color = Color(1, 0.76, 0.32, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 8
+horizontal_alignment = 1
+clip_text = true
+
+[node name="Pause" type="ColorRect" parent="HUD" unique_id=2046194256]
+process_mode = 3
+visible = false
+offset_left = 8.0
+offset_top = 26.0
+offset_right = 284.0
+offset_bottom = 232.0
+color = Color(0.025, 0.035, 0.03, 0.98)
+
+[node name="Info" type="Label" parent="HUD/Pause" unique_id=1449621730]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 2.0
+offset_right = 266.0
+offset_bottom = 152.0
+theme_override_colors/font_color = Color(0.92, 0.88, 0.68, 1)
+theme_override_font_sizes/font_size = 8
+text = "일시정지"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Storage" type="ColorRect" parent="HUD" unique_id=1131149534]
+process_mode = 3
+visible = false
+offset_left = 46.0
+offset_top = 8.0
+offset_right = 276.0
+offset_bottom = 206.0
+color = Color(0.032, 0.04, 0.05, 0.985)
+
+[node name="Info" type="Label" parent="HUD/Storage" unique_id=1198881716]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 200.0
+offset_bottom = 144.0
+theme_override_colors/font_color = Color(0.86, 0.92, 1, 1)
+theme_override_font_sizes/font_size = 9
+text = "창고"
+clip_text = true
+
+[node name="Notice" type="Label" parent="HUD/Storage" unique_id=1000302416]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 148.0
+offset_right = 200.0
+offset_bottom = 161.0
+theme_override_colors/font_color = Color(1, 0.76, 0.32, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 8
+clip_text = true
+
+[node name="Help" type="Label" parent="HUD/Storage" unique_id=1233794284]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 165.0
+offset_right = 200.0
+offset_bottom = 181.0
+theme_override_colors/font_color = Color(0.6, 0.66, 0.6, 1)
+theme_override_font_sizes/font_size = 8
+text = "←→ 칸  ↑↓ 선택  E 옮기기  I/Esc 닫기"
+clip_text = true
+
+[node name="Perk" type="ColorRect" parent="HUD" unique_id=537212520]
+process_mode = 3
+visible = false
+offset_left = 40.0
+offset_top = 21.0
+offset_right = 280.0
+offset_bottom = 219.0
+color = Color(0.05, 0.045, 0.03, 0.99)
+
+[node name="Info" type="Label" parent="HUD/Perk" unique_id=1197391538]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 230.0
+offset_bottom = 153.0
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+theme_override_font_sizes/font_size = 9
+text = "특성 선택"
+
+[node name="Help" type="Label" parent="HUD/Perk" unique_id=817114375]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 157.0
+offset_right = 230.0
+offset_bottom = 173.0
+theme_override_colors/font_color = Color(0.62, 0.66, 0.58, 1)
+theme_override_font_sizes/font_size = 8
+text = "↑↓ 선택   E 결정"
+
+[node name="Forge" type="ColorRect" parent="HUD" unique_id=517324435]
+process_mode = 3
+visible = false
+offset_left = 6.0
+offset_top = 10.0
+offset_right = 298.0
+offset_bottom = 232.0
+color = Color(0.05, 0.038, 0.032, 0.985)
+
+[node name="Info" type="Label" parent="HUD/Forge" unique_id=229311497]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 160.0
+offset_bottom = 150.0
+theme_override_colors/font_color = Color(0.95, 0.85, 0.62, 1)
+theme_override_font_sizes/font_size = 9
+text = "대장간"
+clip_text = true
+
+[node name="Icon" type="TextureRect" parent="HUD/Forge" unique_id=553611612]
+layout_mode = 0
+offset_left = 246.0
+offset_top = 8.0
+offset_right = 274.0
+offset_bottom = 36.0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Detail" type="Label" parent="HUD/Forge" unique_id=397420076]
+layout_mode = 0
+offset_left = 172.0
+offset_top = 40.0
+offset_right = 278.0
+offset_bottom = 197.0
+mouse_filter = 0
+theme_override_constants/line_spacing = -1
+theme_override_font_sizes/font_size = 7
+autowrap_mode = 2
+clip_text = true
+
+[node name="Help" type="Label" parent="HUD/Forge" unique_id=1945605581]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 168.0
+offset_right = 164.0
+offset_bottom = 184.0
+theme_override_colors/font_color = Color(0.6, 0.66, 0.6, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 5
+text = "↑↓ 선택   ←→ 탭 전환
+E 강화   Z 확정   1-9 소켓   I/Esc 닫기"
+autowrap_mode = 2
+clip_text = true
+
+[node name="Notice" type="Label" parent="HUD/Forge" unique_id=1000302414]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 154.0
+offset_right = 164.0
+offset_bottom = 164.0
+theme_override_colors/font_color = Color(1, 0.76, 0.32, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 6
+clip_text = true
+
+[node name="Character" type="ColorRect" parent="HUD" unique_id=1050603006]
+process_mode = 3
+visible = false
+offset_left = 8.0
+offset_top = 26.0
+offset_right = 284.0
+offset_bottom = 232.0
+color = Color(0.035, 0.04, 0.055, 0.985)
+
+[node name="Info" type="Label" parent="HUD/Character" unique_id=693419461]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 130.0
+offset_bottom = 154.0
+theme_override_colors/font_color = Color(0.92, 0.9, 0.72, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 9
+text = "캐릭터"
+autowrap_mode = 2
+
+[node name="Detail" type="Label" parent="HUD/Character" unique_id=1594217146]
+layout_mode = 0
+offset_left = 136.0
+offset_top = 8.0
+offset_right = 222.0
+offset_bottom = 154.0
+theme_override_colors/font_color = Color(0.72, 0.84, 0.96, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 8
+autowrap_mode = 2
+
+[node name="Help" type="Label" parent="HUD/Character" unique_id=812906255]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 158.0
+offset_right = 222.0
+offset_bottom = 174.0
+theme_override_colors/font_color = Color(0.6, 0.66, 0.6, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 8
+text = "↑↓ 선택   E 투자   C/Esc 닫기"
+
+[node name="Skills" type="ColorRect" parent="HUD" unique_id=1601266396]
+process_mode = 3
+visible = false
+offset_left = 8.0
+offset_top = 26.0
+offset_right = 284.0
+offset_bottom = 232.0
+color = Color(0.035, 0.04, 0.055, 0.985)
+
+[node name="Title" type="Label" parent="HUD/Skills" unique_id=282832107]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 4.0
+offset_right = 210.0
+offset_bottom = 16.0
+theme_override_font_sizes/font_size = 8
+text = "스킬 - 무직"
+
+[node name="Row0" type="Control" parent="HUD/Skills" unique_id=282832108]
+anchors_preset = 0
+offset_left = 10.0
+offset_top = 18.0
+offset_right = 210.0
+offset_bottom = 44.0
+
+[node name="Icon" type="TextureRect" parent="HUD/Skills/Row0" unique_id=115002362]
+layout_mode = 0
+offset_right = 20.0
+offset_bottom = 20.0
+texture = ExtResource("5_sk0")
+
+[node name="Text" type="Label" parent="HUD/Skills/Row0" unique_id=1120374723]
+layout_mode = 0
+offset_left = 26.0
+offset_right = 200.0
+offset_bottom = 26.0
+theme_override_colors/font_color = Color(0.92, 0.9, 0.72, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 8
+autowrap_mode = 2
+
+[node name="Row1" type="Control" parent="HUD/Skills" unique_id=2118833098]
+anchors_preset = 0
+offset_left = 10.0
+offset_top = 46.0
+offset_right = 230.0
+offset_bottom = 72.0
+
+[node name="Icon" type="TextureRect" parent="HUD/Skills/Row1" unique_id=1172184503]
+layout_mode = 0
+offset_right = 20.0
+offset_bottom = 20.0
+texture = ExtResource("17_sk1")
+
+[node name="Text" type="Label" parent="HUD/Skills/Row1" unique_id=332975167]
+layout_mode = 0
+offset_left = 26.0
+offset_right = 220.0
+offset_bottom = 26.0
+theme_override_colors/font_color = Color(0.92, 0.9, 0.72, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 8
+autowrap_mode = 2
+
+[node name="Row2" type="Control" parent="HUD/Skills" unique_id=120197094]
+anchors_preset = 0
+offset_left = 10.0
+offset_top = 74.0
+offset_right = 230.0
+offset_bottom = 100.0
+
+[node name="Icon" type="TextureRect" parent="HUD/Skills/Row2" unique_id=1956579305]
+layout_mode = 0
+offset_right = 20.0
+offset_bottom = 20.0
+texture = ExtResource("18_sk2")
+
+[node name="Text" type="Label" parent="HUD/Skills/Row2" unique_id=214909509]
+layout_mode = 0
+offset_left = 26.0
+offset_right = 220.0
+offset_bottom = 26.0
+theme_override_colors/font_color = Color(0.92, 0.9, 0.72, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 8
+autowrap_mode = 2
+
+[node name="Row3" type="Control" parent="HUD/Skills" unique_id=1067302839]
+anchors_preset = 0
+offset_left = 10.0
+offset_top = 102.0
+offset_right = 230.0
+offset_bottom = 128.0
+
+[node name="Icon" type="TextureRect" parent="HUD/Skills/Row3" unique_id=1906622562]
+layout_mode = 0
+offset_right = 20.0
+offset_bottom = 20.0
+texture = ExtResource("19_sk3")
+
+[node name="Text" type="Label" parent="HUD/Skills/Row3" unique_id=539039227]
+layout_mode = 0
+offset_left = 26.0
+offset_right = 220.0
+offset_bottom = 26.0
+theme_override_colors/font_color = Color(0.92, 0.9, 0.72, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 8
+autowrap_mode = 2
+
+[node name="Row4" type="Control" parent="HUD/Skills" unique_id=1067302840]
+visible = false
+anchors_preset = 0
+offset_left = 10.0
+offset_top = 130.0
+offset_right = 230.0
+offset_bottom = 156.0
+
+[node name="Icon" type="TextureRect" parent="HUD/Skills/Row4" unique_id=1906622563]
+layout_mode = 0
+offset_right = 20.0
+offset_bottom = 20.0
+
+[node name="Text" type="Label" parent="HUD/Skills/Row4" unique_id=539039228]
+layout_mode = 0
+offset_left = 26.0
+offset_right = 220.0
+offset_bottom = 26.0
+theme_override_colors/font_color = Color(0.92, 0.9, 0.72, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 8
+autowrap_mode = 2
+
+[node name="Row5" type="Control" parent="HUD/Skills" unique_id=1067302841]
+visible = false
+anchors_preset = 0
+offset_left = 10.0
+offset_top = 158.0
+offset_right = 230.0
+offset_bottom = 184.0
+
+[node name="Icon" type="TextureRect" parent="HUD/Skills/Row5" unique_id=1906622564]
+layout_mode = 0
+offset_right = 20.0
+offset_bottom = 20.0
+
+[node name="Text" type="Label" parent="HUD/Skills/Row5" unique_id=539039229]
+layout_mode = 0
+offset_left = 26.0
+offset_right = 220.0
+offset_bottom = 26.0
+theme_override_colors/font_color = Color(0.92, 0.9, 0.72, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 8
+autowrap_mode = 2
+
+[node name="Help" type="Label" parent="HUD/Skills" unique_id=638807419]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 188.0
+offset_right = 230.0
+offset_bottom = 200.0
+theme_override_colors/font_color = Color(0.6, 0.66, 0.6, 1)
+theme_override_font_sizes/font_size = 8
+text = "1~4 스킬 사용   K/Esc 닫기"
+
+[node name="Quest" type="ColorRect" parent="HUD" unique_id=91019251]
+process_mode = 3
+visible = false
+offset_left = 8.0
+offset_top = 26.0
+offset_right = 284.0
+offset_bottom = 232.0
+color = Color(0.035, 0.04, 0.055, 0.985)
+
+[node name="Info" type="Label" parent="HUD/Quest" unique_id=2093652821]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 210.0
+offset_bottom = 138.0
+theme_override_colors/font_color = Color(0.92, 0.9, 0.72, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 9
+text = "퀘스트 현황"
+autowrap_mode = 2
+
+[node name="Help" type="Label" parent="HUD/Quest" unique_id=1799357908]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 144.0
+offset_right = 210.0
+offset_bottom = 156.0
+theme_override_colors/font_color = Color(0.6, 0.66, 0.6, 1)
+theme_override_font_sizes/font_size = 8
+text = "B/Esc 닫기"
+
+[node name="Guide" type="ColorRect" parent="HUD" unique_id=1371431576]
+process_mode = 3
+visible = false
+offset_left = 8.0
+offset_top = 26.0
+offset_right = 312.0
+offset_bottom = 232.0
+color = Color(0.035, 0.04, 0.055, 0.985)
+
+[node name="Info" type="Label" parent="HUD/Guide" unique_id=1225409649]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 294.0
+offset_bottom = 184.0
+theme_override_colors/font_color = Color(0.92, 0.9, 0.72, 1)
+theme_override_constants/line_spacing = 1
+theme_override_font_sizes/font_size = 8
+text = "가이드"
+autowrap_mode = 2
+
+[node name="Help" type="Label" parent="HUD/Guide" unique_id=888888166]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 188.0
+offset_right = 294.0
+offset_bottom = 200.0
+theme_override_colors/font_color = Color(0.6, 0.66, 0.6, 1)
+theme_override_font_sizes/font_size = 8
+text = "←→ 1/4   G/Esc 닫기"
+
+[node name="TowerSelect" type="ColorRect" parent="HUD" unique_id=555512340]
+process_mode = 3
+visible = false
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 312.0
+offset_bottom = 232.0
+color = Color(0.035, 0.03, 0.05, 0.985)
+
+[node name="Info" type="Label" parent="HUD/TowerSelect" unique_id=555512341]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 266.0
+offset_bottom = 136.0
+theme_override_colors/font_color = Color(0.85, 0.9, 0.98, 1)
+theme_override_font_sizes/font_size = 9
+text = "심연의 탑 - 난이도 선택"
+autowrap_mode = 2
+
+[node name="Help" type="Label" parent="HUD/TowerSelect" unique_id=555512342]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 140.0
+offset_right = 266.0
+offset_bottom = 156.0
+theme_override_colors/font_color = Color(0.6, 0.66, 0.6, 1)
+theme_override_font_sizes/font_size = 8
+text = "↑↓ 선택   Enter 입장   M/Esc 닫기"
+
+[node name="WorldMap" type="ColorRect" parent="HUD" unique_id=67433271]
+process_mode = 3
+visible = false
+offset_left = 8.0
+offset_top = 26.0
+offset_right = 284.0
+offset_bottom = 232.0
+color = Color(0.025, 0.04, 0.055, 0.98)
+
+[node name="Graph" type="Control" parent="HUD/WorldMap" unique_id=120776365]
+anchors_preset = 0
+offset_right = 276.0
+offset_bottom = 170.0
+mouse_filter = 2
+script = ExtResource("15_worldmap")
+
+[node name="Info" type="Label" parent="HUD/WorldMap/Graph" unique_id=2029580530]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 6.0
+offset_right = 158.0
+offset_bottom = 142.0
+theme_override_colors/font_color = Color(0.85, 0.9, 0.98, 1)
+theme_override_font_sizes/font_size = 9
+text = "대륙 이동도"
+autowrap_mode = 2
+
+[node name="Atlas" type="Control" parent="HUD/WorldMap/Graph" unique_id=-453759595]
+anchors_preset = 0
+offset_left = 164.0
+offset_top = 6.0
+offset_right = 274.0
+offset_bottom = 140.0
+mouse_filter = 2
+script = ExtResource("24_atlas")
+
+[node name="Hint" type="Label" parent="HUD/WorldMap/Graph" unique_id=883995956]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 147.0
+offset_right = 270.0
+offset_bottom = 163.0
+theme_override_colors/font_color = Color(0.62, 0.72, 0.84, 1)
+theme_override_font_sizes/font_size = 8
+horizontal_alignment = 1
+
+[node name="Help" type="Label" parent="HUD/WorldMap" unique_id=151092066]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 168.0
+offset_right = 272.0
+offset_bottom = 184.0
+theme_override_colors/font_color = Color(0.55, 0.63, 0.72, 1)
+theme_override_font_sizes/font_size = 8
+text = "↑↓ 선택   Enter/J 이동   M/Esc 닫기"
+horizontal_alignment = 1
+
+[node name="StatBar" type="Control" parent="HUD" unique_id=112261291]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 84.0
+offset_top = 198.0
+offset_right = 174.0
+offset_bottom = 238.0
+
+[node name="Level" type="Label" parent="HUD/StatBar" unique_id=1200780947]
+layout_mode = 0
+offset_right = 90.0
+offset_bottom = 10.0
+theme_override_font_sizes/font_size = 8
+text = "Lv 1   0G"
+
+[node name="HP" type="ProgressBar" parent="HUD/StatBar" unique_id=143100894]
+layout_mode = 0
+offset_top = 12.0
+offset_right = 90.0
+offset_bottom = 20.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_hp")
+value = 100.0
+show_percentage = false
+
+[node name="Value" type="Label" parent="HUD/StatBar/HP" unique_id=942368177]
+layout_mode = 0
+offset_right = 90.0
+offset_bottom = 8.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 6
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MP" type="ProgressBar" parent="HUD/StatBar" unique_id=378900002]
+layout_mode = 0
+offset_top = 22.0
+offset_right = 90.0
+offset_bottom = 30.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_mp")
+max_value = 60.0
+value = 60.0
+show_percentage = false
+
+[node name="Value" type="Label" parent="HUD/StatBar/MP" unique_id=962357813]
+layout_mode = 0
+offset_right = 90.0
+offset_bottom = 8.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 6
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EXP" type="ProgressBar" parent="HUD/StatBar" unique_id=126438753]
+layout_mode = 0
+offset_top = 32.0
+offset_right = 90.0
+offset_bottom = 38.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_exp")
+value = 30.0
+show_percentage = false
+
+[node name="Value" type="Label" parent="HUD/StatBar/EXP" unique_id=128743277]
+layout_mode = 0
+offset_right = 90.0
+offset_bottom = 6.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 5
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MenuTabs" type="Control" parent="HUD" unique_id=136596852]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 8.0
+offset_top = 2.0
+offset_right = 284.0
+offset_bottom = 24.0
+
+[node name="Prev" type="Button" parent="HUD/MenuTabs" unique_id=1186031825]
+layout_mode = 0
+offset_right = 18.0
+offset_bottom = 22.0
+theme_override_font_sizes/font_size = 8
+text = "◀"
+
+[node name="Tab0" type="Button" parent="HUD/MenuTabs" unique_id=1762125437]
+layout_mode = 0
+offset_left = 20.0
+offset_right = 52.0
+offset_bottom = 22.0
+theme_override_font_sizes/font_size = 8
+theme_override_styles/pressed = SubResource("StyleBoxFlat_quest_on")
+toggle_mode = true
+text = "캐릭"
+
+[node name="Tab1" type="Button" parent="HUD/MenuTabs" unique_id=1778072879]
+layout_mode = 0
+offset_left = 54.0
+offset_right = 86.0
+offset_bottom = 22.0
+theme_override_font_sizes/font_size = 8
+theme_override_styles/pressed = SubResource("StyleBoxFlat_quest_on")
+toggle_mode = true
+text = "가방"
+
+[node name="Tab2" type="Button" parent="HUD/MenuTabs" unique_id=1618708226]
+layout_mode = 0
+offset_left = 88.0
+offset_right = 120.0
+offset_bottom = 22.0
+theme_override_font_sizes/font_size = 8
+theme_override_styles/pressed = SubResource("StyleBoxFlat_quest_on")
+toggle_mode = true
+text = "스킬"
+
+[node name="Tab3" type="Button" parent="HUD/MenuTabs" unique_id=2091945689]
+layout_mode = 0
+offset_left = 122.0
+offset_right = 154.0
+offset_bottom = 22.0
+theme_override_font_sizes/font_size = 8
+theme_override_styles/pressed = SubResource("StyleBoxFlat_quest_on")
+toggle_mode = true
+text = "퀘스트"
+
+[node name="Tab4" type="Button" parent="HUD/MenuTabs" unique_id=1187660096]
+layout_mode = 0
+offset_left = 156.0
+offset_right = 188.0
+offset_bottom = 22.0
+theme_override_font_sizes/font_size = 8
+theme_override_styles/pressed = SubResource("StyleBoxFlat_quest_on")
+toggle_mode = true
+text = "지도"
+
+[node name="Tab5" type="Button" parent="HUD/MenuTabs" unique_id=1468980382]
+layout_mode = 0
+offset_left = 190.0
+offset_right = 222.0
+offset_bottom = 22.0
+theme_override_font_sizes/font_size = 8
+theme_override_styles/pressed = SubResource("StyleBoxFlat_quest_on")
+toggle_mode = true
+text = "가이드"
+
+[node name="Tab6" type="Button" parent="HUD/MenuTabs" unique_id=748765422]
+layout_mode = 0
+offset_left = 224.0
+offset_right = 256.0
+offset_bottom = 22.0
+theme_override_font_sizes/font_size = 8
+theme_override_styles/pressed = SubResource("StyleBoxFlat_quest_on")
+toggle_mode = true
+text = "설정"
+
+[node name="Next" type="Button" parent="HUD/MenuTabs" unique_id=1212519017]
+layout_mode = 0
+offset_left = 258.0
+offset_right = 276.0
+offset_bottom = 22.0
+theme_override_font_sizes/font_size = 8
+text = "▶"
+
+[node name="MobileControls" type="Control" parent="HUD" unique_id=981220890]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+offset_right = 320.0
+offset_bottom = 240.0
+mouse_filter = 2
+script = ExtResource("8_mobile")
+
+[node name="Joystick" type="Control" parent="HUD/MobileControls" unique_id=1576269762]
+anchors_preset = 0
+offset_left = 2.0
+offset_top = 166.0
+offset_right = 74.0
+offset_bottom = 238.0
+script = ExtResource("23_joystick")
+
+[node name="Attack" type="Button" parent="HUD/MobileControls" unique_id=1276441070]
+layout_mode = 0
+offset_left = 184.0
+offset_top = 210.0
+offset_right = 212.0
+offset_bottom = 238.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_touch")
+
+[node name="Dodge" type="Button" parent="HUD/MobileControls" unique_id=834652649]
+layout_mode = 0
+offset_left = 216.0
+offset_top = 210.0
+offset_right = 244.0
+offset_bottom = 238.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_touch")
+
+[node name="Potion" type="Button" parent="HUD/MobileControls" unique_id=1774455659]
+layout_mode = 0
+offset_left = 248.0
+offset_top = 210.0
+offset_right = 276.0
+offset_bottom = 238.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_touch")
+
+[node name="Scroll" type="Button" parent="HUD/MobileControls" unique_id=1774455700]
+layout_mode = 0
+offset_left = 280.0
+offset_top = 210.0
+offset_right = 308.0
+offset_bottom = 238.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_touch")
+
+[node name="Up" type="Button" parent="HUD/MobileControls" unique_id=831565257]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 46.0
+offset_right = 312.0
+offset_bottom = 70.0
+theme_override_font_sizes/font_size = 8
+text = "▲"
+
+[node name="Down" type="Button" parent="HUD/MobileControls" unique_id=709567701]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 78.0
+offset_right = 312.0
+offset_bottom = 102.0
+theme_override_font_sizes/font_size = 8
+text = "▼"
+
+[node name="Guaranteed" type="Button" parent="HUD/MobileControls" unique_id=2040103099]
+visible = false
+layout_mode = 0
+offset_left = 288.0
+offset_top = 108.0
+offset_right = 312.0
+offset_bottom = 132.0
+theme_override_font_sizes/font_size = 8
+text = "확정"
+
+[node name="Interact" type="Button" parent="HUD/MobileControls" unique_id=1849357716]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 138.0
+offset_right = 312.0
+offset_bottom = 162.0
+theme_override_font_sizes/font_size = 8
+text = "대화"
+
+[node name="Inventory" type="Button" parent="HUD/MobileControls" unique_id=1856181002]
+visible = false
+layout_mode = 0
+offset_left = 288.0
+offset_top = 108.0
+offset_right = 312.0
+offset_bottom = 132.0
+theme_override_font_sizes/font_size = 8
+text = "가방"
+
+[node name="Sell" type="Button" parent="HUD/MobileControls" unique_id=106681429]
+visible = false
+layout_mode = 0
+offset_left = 288.0
+offset_top = 168.0
+offset_right = 312.0
+offset_bottom = 190.0
+theme_override_font_sizes/font_size = 8
+text = "탭"
+
+[node name="Pause" type="Button" parent="HUD/MobileControls" unique_id=2103547106]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 46.0
+offset_right = 312.0
+offset_bottom = 70.0
+theme_override_font_sizes/font_size = 11
+text = "☰"
+
+[node name="Close" type="Button" parent="HUD/MobileControls" unique_id=1431359449]
+visible = false
+layout_mode = 0
+offset_left = 288.0
+offset_top = 46.0
+offset_right = 312.0
+offset_bottom = 70.0
+theme_override_font_sizes/font_size = 11
+text = "×"
+
+[node name="Buy1" type="Button" parent="HUD/MobileControls" unique_id=1682394487]
+visible = false
+layout_mode = 0
+offset_left = 56.0
+offset_top = 74.0
+offset_right = 198.0
+offset_bottom = 90.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_touch")
+
+[node name="Buy2" type="Button" parent="HUD/MobileControls" unique_id=1191819553]
+visible = false
+layout_mode = 0
+offset_left = 56.0
+offset_top = 90.0
+offset_right = 198.0
+offset_bottom = 106.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_touch")
+
+[node name="Buy3" type="Button" parent="HUD/MobileControls" unique_id=900579375]
+visible = false
+layout_mode = 0
+offset_left = 56.0
+offset_top = 106.0
+offset_right = 198.0
+offset_bottom = 122.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_touch")
+
+[node name="Buy4" type="Button" parent="HUD/MobileControls" unique_id=1040835139]
+visible = false
+layout_mode = 0
+offset_left = 56.0
+offset_top = 122.0
+offset_right = 198.0
+offset_bottom = 138.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_touch")
+
+[node name="Buy5" type="Button" parent="HUD/MobileControls" unique_id=245260220]
+visible = false
+layout_mode = 0
+offset_left = 56.0
+offset_top = 138.0
+offset_right = 198.0
+offset_bottom = 154.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_touch")
+
+[node name="SkillTouch0" type="Button" parent="HUD/MobileControls" unique_id=1147038316]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 174.0
+offset_right = 152.0
+offset_bottom = 198.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_touch")
+
+[node name="SkillTouch1" type="Button" parent="HUD/MobileControls" unique_id=2015957844]
+layout_mode = 0
+offset_left = 156.0
+offset_top = 174.0
+offset_right = 180.0
+offset_bottom = 198.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_touch")
+
+[node name="SkillTouch2" type="Button" parent="HUD/MobileControls" unique_id=447274410]
+layout_mode = 0
+offset_left = 184.0
+offset_top = 174.0
+offset_right = 208.0
+offset_bottom = 198.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_touch")
+
+[node name="SkillTouch3" type="Button" parent="HUD/MobileControls" unique_id=1409156219]
+layout_mode = 0
+offset_left = 212.0
+offset_top = 174.0
+offset_right = 236.0
+offset_bottom = 198.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_touch")
+
+[node name="SkillTouch4" type="Button" parent="HUD/MobileControls" unique_id=1409156220]
+layout_mode = 0
+offset_left = 240.0
+offset_top = 174.0
+offset_right = 264.0
+offset_bottom = 198.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_touch")
+
+[node name="SkillTouch5" type="Button" parent="HUD/MobileControls" unique_id=1409156221]
+layout_mode = 0
+offset_left = 268.0
+offset_top = 174.0
+offset_right = 292.0
+offset_bottom = 198.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_touch")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_touch")
+
+[node name="Save" type="Button" parent="HUD/MobileControls" unique_id=744841062]
+visible = false
+layout_mode = 0
+offset_left = 74.0
+offset_top = 94.0
+offset_right = 142.0
+offset_bottom = 116.0
+theme_override_font_sizes/font_size = 9
+text = "저장"
+
+[node name="Title" type="Button" parent="HUD/MobileControls" unique_id=742759626]
+visible = false
+layout_mode = 0
+offset_left = 150.0
+offset_top = 94.0
+offset_right = 218.0
+offset_bottom = 116.0
+theme_override_font_sizes/font_size = 9
+text = "제목으로"
+
+[node name="ToggleControls" type="Button" parent="HUD/MobileControls" unique_id=1024909180]
+visible = false
+layout_mode = 0
+offset_left = 74.0
+offset_top = 120.0
+offset_right = 218.0
+offset_bottom = 142.0
+theme_override_font_sizes/font_size = 9
+text = "조작 UI 끄기"
+
+[node name="MusicMute" type="Button" parent="HUD/MobileControls" unique_id=1024909181]
+visible = false
+layout_mode = 0
+offset_left = 74.0
+offset_top = 146.0
+offset_right = 142.0
+offset_bottom = 168.0
+theme_override_font_sizes/font_size = 9
+text = "음악 켜짐"
+
+[node name="SfxMute" type="Button" parent="HUD/MobileControls" unique_id=1024909182]
+visible = false
+layout_mode = 0
+offset_left = 150.0
+offset_top = 146.0
+offset_right = 218.0
+offset_bottom = 168.0
+theme_override_font_sizes/font_size = 9
+text = "효과음 켜짐"
+
+[node name="Quit" type="Button" parent="HUD/MobileControls" unique_id=2118833099]
+visible = false
+layout_mode = 0
+offset_left = 74.0
+offset_top = 172.0
+offset_right = 218.0
+offset_bottom = 194.0
+theme_override_font_sizes/font_size = 9
+text = "게임 종료"
+
+[node name="Character" type="Button" parent="HUD/MobileControls" unique_id=2118833104]
+visible = false
+layout_mode = 0
+offset_left = 260.0
+offset_top = 46.0
+offset_right = 284.0
+offset_bottom = 70.0
+theme_override_font_sizes/font_size = 8
+text = "캐릭"
+
+[node name="Auto" type="Button" parent="HUD/MobileControls" unique_id=2118833100]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 40.0
+offset_bottom = 28.0
+theme_override_font_sizes/font_size = 8
+theme_override_styles/pressed = SubResource("StyleBoxFlat_auto_on")
+toggle_mode = true
+text = "AUTO"
+
+[node name="Quest" type="Button" parent="HUD/MobileControls" unique_id=2118833103]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 4.0
+offset_right = 80.0
+offset_bottom = 28.0
+theme_override_font_sizes/font_size = 8
+theme_override_styles/pressed = SubResource("StyleBoxFlat_quest_on")
+toggle_mode = true
+text = "QUEST"

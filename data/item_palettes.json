@@ -1,0 +1,130 @@
+{
+  "guardian_set": {
+    "dark": "#12240f",
+    "shadow": "#2c4a25",
+    "base": "#5d9448",
+    "light": "#a8dc7c"
+  },
+  "captain_set": {
+    "dark": "#0b0b10",
+    "shadow": "#26262f",
+    "base": "#4d4d5c",
+    "light": "#8f8fa6"
+  },
+  "frost_set": {
+    "dark": "#102437",
+    "shadow": "#28587c",
+    "base": "#5aa6d6",
+    "light": "#cbeeff"
+  },
+  "abyss_set": {
+    "dark": "#130a20",
+    "shadow": "#33194f",
+    "base": "#5f3391",
+    "light": "#a97ada"
+  },
+  "boss_set": {
+    "dark": "#2b0a08",
+    "shadow": "#5e1a10",
+    "base": "#a83a22",
+    "light": "#f0a94a"
+  },
+  "tower_easy_set": {
+    "dark": "#18222b",
+    "shadow": "#3c5060",
+    "base": "#7794a6",
+    "light": "#cfe2ee"
+  },
+  "tower_normal_set": {
+    "dark": "#38290b",
+    "shadow": "#7a5e18",
+    "base": "#c9a63c",
+    "light": "#f8ecb4"
+  },
+  "tower_hard_set": {
+    "dark": "#1e0609",
+    "shadow": "#571018",
+    "base": "#96182a",
+    "light": "#e05f72"
+  },
+  "tower_hell_set": {
+    "dark": "#1d0c03",
+    "shadow": "#5c2205",
+    "base": "#b4470d",
+    "light": "#f9a83c"
+  },
+  "tower_abyss_set": {
+    "dark": "#241443",
+    "shadow": "#5b3e9c",
+    "base": "#9d84dd",
+    "light": "#ffffff",
+    "rainbow": true
+  },
+  "common": {
+    "dark": "#1e1e19",
+    "shadow": "#43423b",
+    "base": "#7d7c72",
+    "light": "#c9c8bb"
+  },
+  "rare": {
+    "dark": "#0f2033",
+    "shadow": "#24486e",
+    "base": "#3f76b8",
+    "light": "#a9d0f7"
+  },
+  "epic": {
+    "dark": "#1b0c28",
+    "shadow": "#3f1d63",
+    "base": "#7d3fc0",
+    "light": "#c79bf0"
+  },
+  "mythic": {
+    "dark": "#280a05",
+    "shadow": "#5e1c0d",
+    "base": "#c0341c",
+    "light": "#f5834f"
+  },
+  "primordial_set": {
+    "dark": "#1e0f3a",
+    "shadow": "#4c2a86",
+    "base": "#8a5cd6",
+    "light": "#d9c2ff"
+  },
+  "reef_set": {
+    "dark": "#0a2e30",
+    "shadow": "#166e6c",
+    "base": "#2fb8b0",
+    "light": "#c2fff6"
+  },
+  "prelate_set": {
+    "dark": "#3a2a04",
+    "shadow": "#9a7414",
+    "base": "#e6b830",
+    "light": "#fff4b8"
+  },
+  "warden_set": {
+    "dark": "#1c1c22",
+    "shadow": "#4a4a56",
+    "base": "#8c8c9c",
+    "light": "#e0e0ea"
+  },
+  "reversal_set": {
+    "dark": "#160a26",
+    "shadow": "#3c1a5e",
+    "base": "#6a34a6",
+    "light": "#c69cf0"
+  },
+  "origin_set": {
+    "dark": "#3a0a2e",
+    "shadow": "#8c1c72",
+    "base": "#e040b8",
+    "light": "#ffd0f4",
+    "rainbow": true
+  },
+  "legendary": {
+    "dark": "#3a1c04",
+    "shadow": "#9a5214",
+    "base": "#f0a028",
+    "light": "#ffe6a8"
+  }
+}

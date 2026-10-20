@@ -1,0 +1,4 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://tests/check_wasd_menu_nav.gd" id="1"]
+[node name="CheckWasdMenuNav" type="Node"]
+script = ExtResource("1")
